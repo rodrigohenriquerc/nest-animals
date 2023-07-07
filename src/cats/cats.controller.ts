@@ -10,6 +10,7 @@ import {
 import { CreateCatDto, UpdateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
+import { ForbiddenException } from 'src/forbidden.exception';
 
 @Controller('cats')
 export class CatsController {
@@ -22,7 +23,7 @@ export class CatsController {
 
   @Get()
   async findAll(): Promise<Cat[]> {
-    return this.catsService.findAll();
+    throw new ForbiddenException();
   }
 
   @Get(':id')
