@@ -6,17 +6,22 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ValidationPipe } from 'src/validation-pipe';
+import { RolesGuard } from 'src/roles.guard';
+import { Roles } from 'src/roles.decorator';
 
 @Controller('cats')
+@UseGuards(RolesGuard)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
+  @Roles('admin')
   async create(@Body(new ValidationPipe()) cat: CreateCatDto) {
     this.catsService.create(cat);
   }
