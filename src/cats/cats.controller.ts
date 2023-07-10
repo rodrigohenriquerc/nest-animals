@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
@@ -14,9 +15,11 @@ import { Cat } from './interfaces/cat.interface';
 import { ValidationPipe } from 'src/validation-pipe';
 import { RolesGuard } from 'src/roles.guard';
 import { Roles } from 'src/roles.decorator';
+import { LoggingInterceptor } from 'src/logging.interceptor';
 
 @Controller('cats')
 @UseGuards(RolesGuard)
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
