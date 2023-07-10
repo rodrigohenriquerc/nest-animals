@@ -16,10 +16,11 @@ import { ValidationPipe } from 'src/validation-pipe';
 import { RolesGuard } from 'src/roles.guard';
 import { Roles } from 'src/roles.decorator';
 import { LoggingInterceptor } from 'src/logging.interceptor';
+import { TransformInterceptor } from 'src/transform.interceptor';
 
 @Controller('cats')
 @UseGuards(RolesGuard)
-@UseInterceptors(LoggingInterceptor)
+@UseInterceptors(LoggingInterceptor, TransformInterceptor)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
